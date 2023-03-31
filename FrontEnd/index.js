@@ -1,65 +1,163 @@
-let galleryData = [];
 
+let galleryData = [];
+ 
 const fetchGallery = async() =>{
   await fetch('http://localhost:5678/api/works')
        .then((res)=> res.json())
-      .then((promise) => {
+       .then((promise) => {
         galleryData = promise;
         console.log(galleryData);
+        
+       })
+
+      //  .catch(error => console.error(error));
+
+       const portfolioGallery = document.querySelector('#portfolio .gallery');
+
+      galleryData.map(function(itemGallery){
+        console.log("itemGallery", itemGallery);
+        
+       const listItemRaw = `
+        <div data-category = '${itemGallery.categoryId}'>
+          
+          <img src='${itemGallery.imageUrl}' alt = '${itemGallery.title}'/>
+          <p>${itemGallery.title}</p>
+
+        </div>
+       `;
+       portfolioGallery.insertAdjacentHTML('beforeend', listItemRaw);
+
       });
+
+      
+  };
+  fetchGallery();
+  
+
+// galleryData.map(function(itemGallery){
+//   console.log("itemGallery", itemGallery);
+// });
+
+let categoriesData = [];
+ 
+const fetchCategories = async() =>{
+  await fetch('http://localhost:5678/api/categories')
+       .then((res)=> res.json())
+       .then((promise) => {
+        categoriesData = promise;
+        console.log(categoriesData);
+        
+       });
+      
 };
+fetchCategories();  
 
-const SetGallery = async () => {
-     await fetchGallery();
-     document.querySelector(".gallery");
-};
+//  Creation of buttons //
 
-   SetGallery();
+const allButton = document.createElement("button");
+allButton.textContent = 'Tous';
+const objectButton = document.createElement("button");
+objectButton.textContent = 'Objets';
+const appartementButton = document.createElement("button");
+appartementButton.textContent = 'Appartements';
+const hotelRestaurantButton = document.createElement("button");
+hotelRestaurantButton.textContent = 'Hotels & restaurants';
 
-// // Création de la gallery
+const portfolioFilter = document.querySelector('#portfolio .filter');
+
+portfolioFilter.appendChild(allButton);
+portfolioFilter.appendChild(objectButton);
+portfolioFilter.appendChild(appartementButton);
+portfolioFilter.appendChild(hotelRestaurantButton);
+
+console.log(portfolioFilter);
+     // Fonction pour designer le boutton actif
+      function setActiveButton(button){// remove the 'active' class from all buttons
+        allButton.classList.remove('active');
+        objectButton.classList.remove('active');
+        appartementButton.classList.remove('active');
+        hotelRestaurantButton.classList.remove('active');
+
+       //Ajout de la classe 'Active' au bouton lors du click//
+         button.classList.add('active');
+  
+      }
+
+      function filterWorks(category){
+        const gallery = document.querySelector('#portfolio .gallery');
+        for(const work of gallery.children){
+        console.log(work);
+        if (category == work.dataset.category){
+          work.style.display = "block";
+        } else{
+            work.style.display = "none";
+          }
+      };
+      };
+
+     function diplayAllWorks(){
+      const gallery = document.querySelector('#portfolio .gallery');
+        for(const work of gallery.children){
+          work.style.display = "block";
+        };
+     };
+      // add click event listeners to each button
+      allButton.addEventListener('click', function(){
+        setActiveButton(allButton);
+        diplayAllWorks();
+      });
+
+      objectButton.addEventListener('click', function(){
+        setActiveButton(objectButton);
+        filterWorks(1);
+
+      });
+
+      appartementButton.addEventListener('click', function(){
+          setActiveButton(appartementButton);
+          filterWorks(2);
+      })
+
+      hotelRestaurantButton.addEventListener('click', function(){
+         setActiveButton(hotelRestaurantButton);
+         filterWorks(3);
+      });
 
 
 
-// const galleryEl = document.querySelector(".gallery");
-// const image = document.createElement('img');
-// const title = document.createElement('figcaption');
-// const figureElement = document.createElement('figure');
+    //    const portfolioFilter = document.querySelector('#portfolio .filter');
+    //    categoriesData.map(function(itemCategorie){
+    //     console.log("itemCategorie", itemCategorie);
 
-// imageElement.crossOrigin= "anonymos";
-// imageElement.src = gallery.imageUrl;
-// imageElement.alt = gallery.title;
-// galleryFigCaption.innerHTML = gallery.title;
+    //     const listItemRaw = `
+        
+    //     <input type="button" value='${itemCategorie.name}'></input>
+                 
+    //    `;
+    //    portfolioFilter.insertAdjacentHTML('beforeend', listItemRaw);
 
-// galleryEl.appendChild("imageElement");
-
-// const creategalleryElement = (worksList) => {
-//   worksList.forEach((work) => {
-//     const figureElement = document.createElement("figure");
-//     const galleryImg = document.createElement("img");
-//     const galleryFigCaption = document.createElement("figcaption");
-
-//     galleryImg.crossOrigin = "anonymous";
-//     galleryImg.src = work.imageUrl;
-//     galleryImg.alt = work.title;
-
-//     // galleryFigCaption.innerHTML = work.title;
-
-//     // const creategalleryElement = (worksList) => {
-//     //   worksList.forEach((work) => {
-//     //     const figureElement = document.createElement("figure");
-//     //     const galleryImg = document.createElement("img");
-//     //     const galleryFigCaption = document.createElement("figcaption");
-    
-    //     galleryImg.crossOrigin = "anonymous";
-    //     galleryImg.src = work.imageUrl;
-    //     galleryImg.alt = work.title;
-    
-    //     galleryFigCaption.innerHTML = work.title;
-    
-       
-    //    figureElement.setAttribute("data-id", work.id);
-    //     figureElement.append(galleryImg);
-    //     figureElement.append(galleryFigCaption);
-    //     galleryElement.append(figureElement);
     //   });
-    // };//
+    //   };
+      
+    // fetchCategories();
+
+    // input.addEventListener(function(){
+    //   const portfolioGallery = document.querySelector('#portfolio .gallery');
+
+    //   galleryData.map(function(itemGallery){
+    //     console.log("itemGallery", itemGallery);
+        
+    //    const listItemRaw = `
+    //     <div>
+          
+    //       <img src='${itemGallery.imageUrl}' alt = '${itemGallery.title}'/>
+    //       <p>${itemGallery.title}</p>
+
+    //     </div>
+    //    `;
+    //    portfolioGallery.insertAdjacentHTML('beforeend', listItemRaw);
+
+    //   });
+
+
+    // });
