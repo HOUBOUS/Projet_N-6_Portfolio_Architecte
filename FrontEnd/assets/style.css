@@ -138,10 +138,6 @@ li:hover {
 
 }
 
-#login{
-	width: 50%;
-	margin: auto;
-}
 #login > * {
 	text-align: center;
 
@@ -170,6 +166,14 @@ li:hover {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+#login{
+	width: 50%;
+margin: auto;
+}
+
+#login a{
+	text-align: center;
+}
 
 #contact{
 	width: 50%;
@@ -236,7 +240,7 @@ button.active{
 	color: white;
 }
 
-a{
+nav a{
 	color: black;
 	text-decoration: none;
 }

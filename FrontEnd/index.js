@@ -84,7 +84,7 @@ console.log(portfolioFilter);
       }
 
       function filterWorks(category){
-        const gallery = document.querySelector('#portfolio .gallery');
+        const gallery = document.querySelector('.gallery');
         for(const work of gallery.children){
         console.log(work);
         if (category == work.dataset.category){
@@ -96,7 +96,7 @@ console.log(portfolioFilter);
       };
 
      function diplayAllWorks(){
-      const gallery = document.querySelector('#portfolio .gallery');
+      const gallery = document.querySelector('.gallery');
         for(const work of gallery.children){
           work.style.display = "block";
         };
@@ -116,7 +116,7 @@ console.log(portfolioFilter);
       appartementButton.addEventListener('click', function(){
           setActiveButton(appartementButton);
           filterWorks(2);
-      })
+      });
 
       hotelRestaurantButton.addEventListener('click', function(){
          setActiveButton(hotelRestaurantButton);
@@ -125,39 +125,4 @@ console.log(portfolioFilter);
 
 
 
-    //    const portfolioFilter = document.querySelector('#portfolio .filter');
-    //    categoriesData.map(function(itemCategorie){
-    //     console.log("itemCategorie", itemCategorie);
-
-    //     const listItemRaw = `
-        
-    //     <input type="button" value='${itemCategorie.name}'></input>
-                 
-    //    `;
-    //    portfolioFilter.insertAdjacentHTML('beforeend', listItemRaw);
-
-    //   });
-    //   };
       
-    // fetchCategories();
-
-    // input.addEventListener(function(){
-    //   const portfolioGallery = document.querySelector('#portfolio .gallery');
-
-    //   galleryData.map(function(itemGallery){
-    //     console.log("itemGallery", itemGallery);
-        
-    //    const listItemRaw = `
-    //     <div>
-          
-    //       <img src='${itemGallery.imageUrl}' alt = '${itemGallery.title}'/>
-    //       <p>${itemGallery.title}</p>
-
-    //     </div>
-    //    `;
-    //    portfolioGallery.insertAdjacentHTML('beforeend', listItemRaw);
-
-    //   });
-
-
-    // });
