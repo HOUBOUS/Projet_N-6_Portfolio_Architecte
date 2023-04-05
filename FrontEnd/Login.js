@@ -36,7 +36,7 @@ submit.addEventListener('click', (event) => {
             
             if (response.ok) {
                 //rajout du stockage dans le local storage user id et Token
-              window.location.href = 'index.html';
+              window.location.href = 'admin.html';
             } else {
               
               const error = document.querySelector('.error');
