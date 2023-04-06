@@ -33,39 +33,23 @@ const fetchGallery = async() =>{
   };
       fetchGallery();
 
-//   const openModal = function(e){
-//     e.preventDefault();
-//     const target = document.querySelector(e.target.getAttribute('href'));
-//     target.style.diplay = null;
-//     target.removeAttribute('aria-hidden');
-//     target.setAttribute('aria-modal', true);
-//   };
+  const openModal = function(e){
+    e.preventDefault();
+    const target = document.querySelector(e.target.getAttribute('href'));
+    target.style.display = null;
+    target.removeAttribute('aria-hidden');
+    target.setAttribute('aria-modal', true);
+  };
 
-//  document.querySelectorAll(".js-modal").forEach(a => {
-//     a.addEventListener('click', openModal);
+ document.querySelectorAll(".js-modal").forEach(a => {
+    a.addEventListener('click', openModal);
     
-//  });
+ });
 
-// Get the modals and the buttons that open them
-const modal1 = document.getElementById("modal1");
-const modal2 = document.getElementById("modal2");
-const modal3 = document.getElementById("modal3");
-const btn1 = document.querySelector(".js-modal[href='#modal1']");
-const btn2 = document.querySelector(".js-modal[href='#modal2']");
-const btn3 = document.querySelector(".js-modal[href='#modal3']");
+ 
 
-// When the user clicks the button, open the modal
-btn1.addEventListener("click", function() {
-  modal1.style.display = "block";
-});
-btn2.addEventListener("click", function() {
-  modal2.style.display = "block";
-});
-btn3.addEventListener("click", function() {
-  modal3.style.display = "block";
-});
+// Utilisateur click sur le bouton pour fermer la modale
 
-// When the user clicks the close button, close the modal
 const closeButtons = document.querySelectorAll(".modal-close");
 for (let i = 0; i < closeButtons.length; i++) {
   closeButtons[i].addEventListener("click", function() {
@@ -74,8 +58,7 @@ for (let i = 0; i < closeButtons.length; i++) {
     modal3.style.display = "none";
   });
 }
-
-// When the user clicks anywhere outside of the modal, close it
+//Utilisateur click n'importe où à l'extérieur de la modale ça ferme la modale
 window.addEventListener("click", function(event) {
   if (event.target === modal1 || event.target === modal2 || event.target === modal3) {
     modal1.style.display = "none";

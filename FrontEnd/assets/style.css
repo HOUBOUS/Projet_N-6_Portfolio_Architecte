@@ -234,7 +234,6 @@ input[type="submit"]{
 }
 
 button{
-	display: inline-block;
 	border: 1px solid #1D6154;
     border-radius: 60px;
     min-width: 100px;
@@ -356,32 +355,59 @@ footer nav ul {
 /* Modale1 */
 .modal{
 	position: fixed;
-	display: flex;
+	z-index: 1;
+	top: 0;
+	left: 0;
+    display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: 1;
-	top: 0%;
-	left: 0;
-	width: 100 vw;
-	height: 100 vh;
+	width: 100%;
+	height: 100%;
 	background: rgba(0, 0, 0, 0.8);
 }
  
 
 .modal-wrapper {
+	overflow: auto;
 	width: 600px;
-	max-width: 600px;
-	background-color: white;
-	border-radius: 10px;
-	padding: 20px;
+	height: 730px;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 80vh;
   }
-   
-  /* Style the close button */
-  .modal-close {
+  .modal-close{
 	position: absolute;
-	top: 10px;
-	right: 10px;
-	font-size: 20px;
-	color: black;
+	left: 490px;
+	top:35px;
 	cursor: pointer;
+	
+  }
+ .photoLink{
+	display: inline-block;
+	color: #FFFFFF;
+	border-radius: 60px;
+    min-width: 237px;
+    height: 37px;
+    padding: 9px 40px 11px 42px;
+    background: #1D6154;
+    font-family: 'Syne';
+    font-size: 18px;
+    font-weight: bold;
+	margin-top: 500px;
+    display: flex;
+	justify-content: center;
+  }
+
+  .deleteGallery{
+	display: flex;
+	justify-content: center;
+  }
+  aside button{
+	border: none;
   }

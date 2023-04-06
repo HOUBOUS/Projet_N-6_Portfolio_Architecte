@@ -60,8 +60,7 @@
                <h2>Mes Projets</h2>
             <div class="modifier31">
               <i class="fa-regular blackColor fa-pen-to-square"></i>
-              <p><a href="#modal3" class="js-modal"
-                > modifier</a></p>
+              <p><a href="#modal3" class="js-modal" id="btnEditGallery"> modifier</a></p>
             </div>
         </div>
             <div class="gallery">
@@ -82,22 +81,37 @@
                 <input type="submit" value="Envoyer">
             </form>
         </section>
+        
         <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="titleModal1" style="display: none;" >
-            <div class="modal-wrapper modal-close">
-               <h1 id="titleModal1">Modale1</h1>
+            <div class="modal-wrapper ">
+                <button class="modal-close">X</button>
+               <h1 id="titleModal1">modale1</h1>
                <p>Mon projet est devenir developpeuse web</p>
+               
             </div>
         </aside>
         <aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="titleModal2" style="display: none;" >
-            <div class="modal-wrapper modal-close">
-               <h1 id="titleModal2">Modale2</h1>
+            <div class="modal-wrapper ">
+                <button class="modal-close">X</button>
+               <h1 id="titleModal2">modale2</h1>
                <p>Mon projet est devenir developpeuse web</p>
+               
             </div>
         </aside>
+        
         <aside id="modal3" class="modal" aria-hidden="true" role="dialog" aria-modal="false" aria-labelledby="titleModal3" style="display: none;" >
-            <div class="modal-wrapper modal-close">
-               <h1 id="titleModal3">Modale3</h1>
-               <p>Mon projet est devenir developpeuse web</p>
+            <div class="modal-wrapper ">
+                <button class="modal-close">X</button>
+                <div class="modalMultidirection">
+                    <i class="fa-sharp fa-solid fa-up-down-left-right"></i>
+                </div>
+                <ul class="photo">
+                    <li><button class="photoLink" id="modal5">Ajouter une photo</button></li>
+                </ul>
+                <ul>
+                    <li class="deleteGallery">Supprimer la galerie</li>
+                </ul>
+               
             </div>
         </aside>
 
