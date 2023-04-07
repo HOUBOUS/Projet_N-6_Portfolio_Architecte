@@ -10,7 +10,7 @@ const fetchGallery = async() =>{
         
        })
 
-      //  .catch(error => console.error(error));
+       .catch(error => console.error(error));
 
        const portfolioGallery = document.querySelector('#portfolio .gallery');
 
@@ -34,9 +34,6 @@ const fetchGallery = async() =>{
   fetchGallery();
   
 
-// galleryData.map(function(itemGallery){
-//   console.log("itemGallery", itemGallery);
-// });
 
 let categoriesData = [];
  

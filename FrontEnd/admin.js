@@ -10,11 +10,11 @@ const fetchGallery = async() =>{
         
        })
 
-      //  .catch(error => console.error(error));
+       .catch(error => console.error(error));
 
-       const portfolioGallery = document.querySelector('#portfolio .gallery');
+    const portfolioGallery = document.querySelector('#portfolio .gallery');
 
-      galleryData.map(function(itemGallery){
+    galleryData.map(function(itemGallery){
         console.log("itemGallery", itemGallery);
         
        const listItemRaw = `
@@ -66,3 +66,39 @@ window.addEventListener("click", function(event) {
     modal3.style.display = "none";
   }
 });
+
+let galleryModalData = [];
+ 
+const fetchGalleryModal3 = async() =>{
+  await fetch('http://localhost:5678/api/works')
+       .then((res)=> res.json())
+       .then((promise) => {
+        galleryModalData = promise;
+        console.log(galleryModalData);
+        
+       })
+
+       .catch(error => console.error(error));
+
+       const portfolioGalleryModal3 = document.querySelector('#modal3 .editGalleryModal3');
+
+       galleryModalData.map(function(itemGallery){
+        console.log("itemGallery", itemGallery);
+        
+       const listItemRaw = `
+        <div data-category = '${itemGallery.categoryId}'>
+          
+          <img src='${itemGallery.imageUrl}' alt = '${itemGallery.title}'/>
+          <p>éditer</p>
+
+        </div>
+       `;
+       portfolioGalleryModal3.insertAdjacentHTML('beforeend', listItemRaw);
+
+      });
+
+      
+  };
+  fetchGalleryModal3();
+  
+
