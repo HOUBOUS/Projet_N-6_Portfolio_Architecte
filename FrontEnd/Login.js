@@ -24,26 +24,23 @@ submit.addEventListener('click', (event) => {
          return;
    }
 
-   fetch('http://localhost:5678/api/users/login',{
-          
-            method: 'POST',
-            body: JSON.stringify({ email, password }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-        })
-        .then(response => {
-            
-            if (response.ok) {
-                //rajout du stockage dans le local storage user id et Token
-              window.location.href = 'admin.html';
-            } else {
-              
-              const error = document.querySelector('.error');
-              error.innerHTML = 'Email or password is incorrect';
-            };
-          })
-        
-        
- });
+  // Définir les informations de connexion
 
+// Effectuer une requête POST à l'API pour se connecter
+fetch('http://localhost:5678/api/users/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ email, password })
+})
+.then(response => response.json())
+.then(data => {
+  // Si la connexion est réussie, enregistrer le jeton dans le stockage local
+  if (data.token) {
+    localStorage.setItem('token', data.token);
+    window.location.href = "./index.html";
+  }
+})
+.catch(error => console.error(error));
+});

@@ -277,7 +277,11 @@ a:hover
     gap: 10px;
 	margin-left: 0px;
   }
-  
+
+  aside p{
+	color:#000000;
+}
+.chartAddPhoto
 	
   #btnHeader{
     display: flex;
@@ -328,7 +332,7 @@ a:hover
   }
     
 .whiteColor{
-		color: #FFFFFF;
+	color: #FFFFFF;
 }
     
 .blackColor{
@@ -343,8 +347,11 @@ a:hover
 	gap: 12px;
 }
 
-.penHeader{
+.fa-pen-to-sqaure{
    display: flex;
+   width: 100px;
+   height: 70px;
+   color: aqua;
 }
 footer nav ul {
 	display: flex;
@@ -383,7 +390,7 @@ footer nav ul {
   .modal-close{
 	position: absolute;
 	left: 490px;
-	top:35px;
+	top:25px;
 	cursor: pointer;
 	
   }
@@ -440,6 +447,46 @@ footer nav ul {
 	padding-right: 57px;
 	cursor: pointer;
   }
-  aside button{
+  aside .modal-close{
 	border: none;
+  }
+    /* Ajout des photos */
+	.photoToAdd{
+		font-size: 26px;
+		font-weight: 400;
+		padding: 60px 210px;
+	}
+  .chartAddPhoto{
+	width: 420px;
+	height: 170px;
+	background-color: #E8F1F6;
+	display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+  }
+
+  #logout{
+	display: none;
+
+  }
+
+  .fa-image{
+	color: #B9C5CC;
+	width: 60px;
+	height: 50px;
+	padding: 6px 6px;
+
+  }
+
+  .fa-arrow-left{
+	position: absolute;
+	left: 30px;
+	top: 35px;
+	cursor: pointer;
+  }
+  
+  #category{
+	border: 6px solid red;
   }

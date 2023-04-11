@@ -6,7 +6,7 @@ const fetchGallery = async() =>{
        .then((res)=> res.json())
        .then((promise) => {
         galleryData = promise;
-        console.log(galleryData);
+        
         
        })
 
@@ -15,7 +15,7 @@ const fetchGallery = async() =>{
        const portfolioGallery = document.querySelector('#portfolio .gallery');
 
       galleryData.map(function(itemGallery){
-        console.log("itemGallery", itemGallery);
+        
         
        const listItemRaw = `
         <div data-category = '${itemGallery.categoryId}'>
@@ -42,7 +42,7 @@ const fetchCategories = async() =>{
        .then((res)=> res.json())
        .then((promise) => {
         categoriesData = promise;
-        console.log(categoriesData);
+        
         
        });
       
