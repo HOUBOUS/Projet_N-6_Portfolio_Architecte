@@ -6,23 +6,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<script src="https://kit.fontawesome.com/12ca82ae36.js" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
 	<aside>
-		<div  id="blackBanner" class="blackBanner" >
-		<!-- homepage_edit bar / hidden by default-->
+		 <div  id="blackBanner" class="blackBanner" >
+		  <!-- homepage_edit bar / hidden by default-->
 	
-		<div class="edit">
-			<i class="fa-regular whiteColor fa-pen-to-square"></i>
-			<p>Mode édition</p>
-			<button id="btnHeader" class="id="btnHeader"">publier les changements</button>
-		</div>
-		<div id="loginMessage" class="message"></div>
+		    <div class="edit">
+			  <i class="fa-regular whiteColor fa-pen-to-square"></i>
+			  <p>Mode édition</p>
+			  <button id="btnHeader" class="btnHeader">publier les changements</button>
+		    </div>
+		    <div id="loginMessage" class="message"></div>
 
-	</div>
+	     </div>
 	</aside>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
@@ -30,7 +31,8 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li id="loginLogout" class="navLink"><a href="Login.html">login</a></li>
+			<li><a href="Login.html"  id="lienLogin" class="lienConnexion">login</a></li>
+			<li><a href="index.html" id="lienLogout" class="js-modal lienConnexion">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -131,20 +133,20 @@
 				<p class="FormatOfPhoto">jpg png : 4mo max</p>
 			</div>
 			<form id="formular">
-				<div>
-				<label for="title">Titre</label>
-				<input type="text" id="title" name="title"/>
-			</div>
-				<div>
-				<label for="category">Catégorie</label>
-				<select id="category">
-					<option value="">--choix de la Catégorie--</option>
-				</select><br>
-			</div>
-			 <div>
-			  <button id="submitBtn">Valider</button>
-			  <p id="errorMessage"></p>
-			</div>
+				 <div id="title">
+				    <label for="title">Titre</label>
+				    <input type="text" id="title" name="title"/>
+			    </div>
+				<div id="category">
+				    <label for="category">Catégorie</label>
+				    <select id="category">
+					    <option value="">--choix de la Catégorie--</option>
+				    </select><br>
+			    </div>
+			    <div>
+			       <button id="submitBtn">Valider</button>
+			       <p id="errorMessage"></p>
+			    </div>
 			</form>
 		  </div> 
 		</div>

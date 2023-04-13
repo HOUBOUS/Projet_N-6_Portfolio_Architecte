@@ -1,5 +1,10 @@
 const error = document.querySelector('.error');
 const submit = document.getElementById('submit');
+const token = localStorage.getItem('token');
+const modals = document.querySelectorAll('.js-modal');
+const login = document.querySelector('.lienConnexion');
+const filtres = document.querySelector('.filtres');
+
 
 // Ajout d'un evenement eventLister sur le bouton submit
 
@@ -40,7 +45,12 @@ fetch('http://localhost:5678/api/users/login', {
   if (data.token) {
     localStorage.setItem('token', data.token);
     window.location.href = "./index.html";
+   login.innerHTML = " ";
+   
+  
   }
-})
+  
+  })
+
 .catch(error => console.error(error));
 });

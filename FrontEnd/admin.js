@@ -1,4 +1,35 @@
 
+const token = localStorage.getItem('token');
+const modals = document.querySelectorAll('.js-modal');
+const blackBanner = document.getElementById('blackBanner');
+const login = document.querySelector('#lienLogin');
+const logout = document.getElementById('lienLogout');
+const filters = document.querySelector('#portfolio .filter');
+const editIcon = document.querySelectorAll('.fa-pen-to-square');
+
+
+//losqu'on appuie sur le bouton logout, efface le local storage
+
+logout.addEventListener('click', () => {
+  localStorage.clear();
+  logout.href = "index.html";
+  blackBanner.innerHTML = " ";
+  blackBanner.style.display = "none";
+
+  modals.forEach(modals => {
+    modals.style.display = 'none';
+  });
+
+  editIcon.forEach(editIcon =>{
+    editIcon.style.display ='none';
+  });
+
+  
+  filters.innerHTML = " ";
+
+    
+});
+       //gestion de l'ouverture des modales
 
   const openModal = function(e){
     e.preventDefault();
@@ -42,13 +73,13 @@ window.addEventListener("click", function(event) {
 let galleryModalData = [];
  
 const fetchGalleryModal3 = async() =>{
-  await fetch('http://localhost:5678/api/works')
-       .then((res)=> res.json())
-       .then((promise) => {
-        galleryModalData = promise;
-        console.log(galleryModalData);
+     await fetch('http://localhost:5678/api/works')
+           .then((res)=> res.json())
+           .then((promise) => {
+           galleryModalData = promise;
+           console.log(galleryModalData);
         
-       })
+         })
 
        .catch(error => console.error(error));
 
@@ -58,9 +89,10 @@ const fetchGalleryModal3 = async() =>{
         console.log("itemGallery", itemGallery);
         
        const listItemRaw = `
-        <div data-category = '${itemGallery.categoryId}'>
+        <div data-id = '${itemGallery.id}'>
           
           <img src='${itemGallery.imageUrl}' alt = '${itemGallery.title}'/>
+          <i class="fas fa-trash-can trash-can-button"></i>
           <p>éditer</p>
 
         </div>
@@ -72,120 +104,56 @@ const fetchGalleryModal3 = async() =>{
   };
   fetchGalleryModal3();
 
+ 
+ //La fonction removeGalleryItem est appelée avec l'ID de l'élément parent, qui est stocké dans l'attribut de données "data-id" de la div parent. 
 
-       
-      //création de la page ADMIN
-          // Récuperer le contenu de la page indexe.html
-          // fetch('index.html')
-          //   .then(response => response.text())
-          //   .then(Data => {
-          //    //Insérer le contenu dans une nouvelle page html
-          //    const parser = new DOMParser();
-          //    const htmlDoc = parser.parseFromString(Data, 'text/html');
-          //     // modifier le contenu de la page admin
-          //           // *bande noire Header
-          //        const blackBanner = document.querySelector("#blackBanner");
-          //            const bannerEdit = document.createElement('div');
-          //            bannerEdit.classList.add('edit');
-          //            const bannerIcon = document.createElement('i'); 
-          //            bannerIcon.classList.add('penHeader', 'fa-regular', 'whiteColor', 'fa-pen-to-square');              
-          //            const bannerText = document.createElement('p');
-          //            bannerText.textContent = 'Mode édition';
-          //            const publishBtn = document.createElement('button');
-          //            publishBtn.id = 'btnHeader';
-          //            publishBtn.textContent = 'publier les changements'
-          //            bannerEdit.appendChild(bannerIcon);
-          //            bannerEdit.appendChild(bannerText);
-          //            bannerEdit.appendChild(publishBtn);
-                     
-          //            blackBanner.appendChild(bannerEdit)
-          //            console.log(blackBanner);    
-          //         //Ajout Icone et text modal1
-          //         const modal1 = document.querySelector(".modifier1");
-          //         const modal1Icon = document.createElement('i');
-          //              modal1Icon.classList.add('fa-regular', 'fa-pen-to-square', 'blackColor');
-          //         const modal1text = document.createElement('p');
-          //             // **Créer le lien hypertexte dans l'élément p
-          //         const modal1Link = document.createElement('a');
-          //               modal1Link.href = "#modal1";
-          //               modal1Link.className.add("js-modal");
-          //               modal1Link.textContent = "modifier";
-          //              // **Ajouter l'élément div à la page
-          //               modal1text.appendChild(modal1Link);
-          //               modal1.appendChild(modal1Icon);
-          //               modal1.appendChild(modal1text);
 
-          //            //Ajout du contenu modifié de la page index.html à la page admin.html
-          //     // Afficher la page HTML
-          //       const adminPage = document.createElement('html');
-          //        adminPage.appendChild(htmlDoc.documentElement.cloneNode(true));
-          //       document.documentElement.replaceWith(adminPage);
-          //        // document.body.innerHTML = admin.outerHTML
-
-          //   });
-
-    
-    
-   // Vérification du Token 
-    function tokenVerification(){
-      
-      const token = localStorage.getItem('token')
-   
-     if(token){
-      console.log("token en mémoire ! => Mode admin activé");
-      //au chargement de la page index rajout bandeau noir 
-      adminEdition();
-     }else {
-      console.log("pas de token en mémoire");
-
-    }
-
-  } 
-
-    const removeGalleryItem = async (id) =>{
-      // Formuler la demande d'autorisation accés token
-      const responseAuth = await fetch('http://localhost:5678/api/authenticate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: 'your_username', password: 'your_password' }),
-      });
-      const { accessToken } = await responseAuth.json();
+// Pour supprimer un élement de l'API Swagger, je fait une demande d'autorisation en envoyant les informations d'identification email et password,
+  const removeGalleryItem = async (id) => {
+    const responseAuth = await fetch('http://localhost:5678/api/authenticate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: 'your_email', password: 'your_password' })
+    });
+    const { accessToken } = await responseAuth.json();
   
-        
-    // Formuler la demande de supression avec autorisation accés token
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    if (response.ok) {
+  // La fonction de suppression utilise l'API Swagger pour supprimer l'élément avec l'ID donné, et si elle réussit, elle supprime également l'élément 
+// HTML correspondant de la galerie.
+    if (response.status === 204) {
       console.log(`Item with id ${id} deleted successfully.`);
     } else {
       throw new Error(`Failed to delete item with id ${id}.`);
     }
-    
   };
+  
+  const portfolioGalleryModal3 = document.querySelector('#modal3 .editGalleryModal3');
 
-   //Passage en mode administrateur 
+  // Ecouter l'évenement clique sur l'icône de corbeille (trash-can-button) pour supprimer l'élement parent 
+  
+  portfolioGalleryModal3.addEventListener('click', (event) => {
+    if (event.target.classList.contains('trash-can-button')) {
+      const listItem = event.target.parentNode;
+      const id = listItem.dataset.id;
+      removeGalleryItem(id);
+      listItem.parentNode.removeChild(listItem);
+    }
+  });
    
-
+  //Suppression de l'ensemble des travaux en cliquant que le bouton "Supprimer la galerie"
+  const deleteGallery = document.querySelector('.deleteGallery');
+  const editGalleryModal3 = document.querySelector('.editGalleryModal3');
+  const arrowMultidirection = document.querySelector('.modalMultidirection .fa-up-down-left-right');
+  
+  deleteGallery.addEventListener('click', () => {
+   
+      editGalleryModal3.innerHTML = " ";
+      arrowMultidirection.style.display = "none";
     
+  });
+
   
-   
-
-//   //Suppression des images de la galerie
-//   let deleteBtn = document.createElement('i');
-//       deleteBtn.classList.add("fa-solid", "fa-trash-can");
-//       deleteBtn.style.display = "none";
-
-//   let editBtn = document.querySelector(".editGalleryModal3 p");
-      
-      
-// let figure = document.createElement("figure");
-// let galleryElement = document.querySelectorAll('.editGalleryModal3 div');
-//     //  Ajout de boucle forEach
-//    galleryElement.appendChild(figure);
-
-//    figure.appendChild(deleteBtn);
-//    figure.appendChild(editBtn);
-   
-  
+        
