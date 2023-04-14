@@ -64,6 +64,11 @@ window.addEventListener("click", function(event) {
   }
 });
 
+function closeModal4(event){
+  event.preventDefault();
+  modal4.style.display = "none";
+
+}
 
 // Afficher les images de la modale3
 
@@ -152,4 +157,97 @@ const fetchGalleryModal3 = async() =>{
     
   });
 
+  // Afficher la nouvelle photo dans la galerie 
+
+ 
+    
+    // Afficher la nouvelle photo dans la galerie 
+
+     const chartAddPhoto = document.querySelector('#chartAddPhoto');
+     const inputImg = document.querySelector('#inputImg');
   
+    inputImg.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        chartAddPhoto.style.backgroundImage = `url(${reader.result})`;
+      };
+    });
+    
+    // récuperer le formulaire et ajouter un listener sur l'evenement submit
+    const formular = document.getElementById('formular');
+       formular.addEventListener('submit', envoyerFormulaire);
+
+  function envoyerFormulaire(event) {
+    // Empecher l'envoi par défaut de mon formulaire
+    event.preventDefault();
+       
+    //Récupérer les valeurs des différents éléments
+       const title = document.getElementById('title');
+       const image = document.getElementById('inputImg').files[0];
+       const category = document.getElementById('category').value;
+
+   
+    
+    //Message d'erreur si le formulaire est mal rempli 
+    const errorMessage = document.getElementById('errorMessage');
+
+      console.log(!title.value || ! image.value || !category.value);
+
+      if (!title.value || ! image.value || !category.value){
+
+        errorMessage.textContent = 'Veuillez remplir tous les champs';
+
+        return;
+      }
+      else{
+        errorMessage.innerHTML = " ";
+      }
+     //Création d'un objet appelé FormData pour envoyer le fichier image
+      const formData = new FormData();
+      formData.appendChild('title', title);
+      formData.appendChild('category', category);
+      formData.appendChild('image', image);
+
+      // Envoyer la requete avce fetch à l'API Swagger 
+          fetch('http://localhost:5678/api/works',{
+            method: 'POST',
+            headers:{
+              'Authorization': `Bearer ${token}` 
+            },
+            body: formData,
+          })
+
+          .then(response =>{
+            if (!response.ok){
+              throw new Error('Une erreur est survenue!!');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log(data);
+            document.getElementById('errorMessage').textContent = 'Le formulaire a été envoyé avec succès !';
+            // Message de confirmation
+            const newWork = document.createElement("div");
+            newWork.dataset.id = data.id;
+            const imgNewWork = document.createElement("img");
+            imgNewWork.src = data.imageUrl;
+            const titleNewWork = dosuement.createElement("p");
+            titleNewWork.innerHTML = data.title;
+            const galerie = document.querySelector("#portfolio .gallery");
+
+            galerie.appendChild(newWork);
+            newWork.appendChild(imgNewWork);
+            newWork.appendChild(titleNewWork);
+
+           //Fermer la modale aprés ajout du nouveau work
+            
+            closeModal4(event);
+          
+          })
+          .catch(error =>{
+             console.error(error);
+             document.getElementById('errorMessage').textContent = 'Une erreur est survenue lors de l\'envoi du formulaire';
+          });
+        }
