@@ -127,25 +127,36 @@
 		  <div class="editGalleryModal4">
 			 <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
 			 <p class="photoToAdd">Ajout photo</p>
-			<div class="chartAddPhoto">
+			<div class="chartAddPhoto" id="chartAddPhoto">
 				<i class="fa-sharp fa-regular fa-image"></i>
-				<div class="addPhoto">+Ajouter photo</div>
+				<label for="inputImg" class="addPhoto" id="image">+Ajouter photo</label>
+				<input type="file" name="image" id="inputImg" accept="image/*" required>
 				<p class="FormatOfPhoto">jpg png : 4mo max</p>
+				
+			</div>
+			<div id="divisionPreviewImg">
+				<img id="previewImg">
 			</div>
 			<form id="formular">
 				 <div id="title">
 				    <label for="title">Titre</label>
-				    <input type="text" id="title" name="title"/>
+				    <input type="text" id="title" name="title" required/>
 			    </div>
 				<div id="category">
 				    <label for="category">Catégorie</label>
-				    <select id="category">
-					    <option value="">--choix de la Catégorie--</option>
+				    <select id="category" name="category" required>
+					    <option value=1>Objet</option>
+						<option value=2>Appartement</option>
+						<option value=3>Hôtel ou restaurant</option>
+						
 				    </select><br>
+					
 			    </div>
+				
 			    <div>
-			       <button id="submitBtn">Valider</button>
-			       <p id="errorMessage"></p>
+					<div class="greyBarBis"></div>
+			       <input type="submit" class="boutonModale" id="addSubmitBtn" value="Valider">
+			       <p id="errorMessage">Un des champs est manquant</p>
 			    </div>
 			</form>
 		  </div> 

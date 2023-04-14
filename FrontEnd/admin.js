@@ -15,6 +15,7 @@ logout.addEventListener('click', () => {
   logout.href = "index.html";
   blackBanner.innerHTML = " ";
   blackBanner.style.display = "none";
+  filters.innerHTML = " ";
 
   modals.forEach(modals => {
     modals.style.display = 'none';
@@ -23,10 +24,6 @@ logout.addEventListener('click', () => {
   editIcon.forEach(editIcon =>{
     editIcon.style.display ='none';
   });
-
-  
-  filters.innerHTML = " ";
-
     
 });
        //gestion de l'ouverture des modales
@@ -156,4 +153,3 @@ const fetchGalleryModal3 = async() =>{
   });
 
   
-        
