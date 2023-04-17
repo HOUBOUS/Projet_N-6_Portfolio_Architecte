@@ -45,9 +45,8 @@ fetch('http://localhost:5678/api/users/login', {
   if (data.token) {
     localStorage.setItem('token', data.token);
     window.location.href = "./index.html";
-   login.innerHTML = " ";
+    // login.style.display = "none";
    
-  
   }
   
   })

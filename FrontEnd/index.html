@@ -31,7 +31,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="Login.html"  id="lienLogin" class="lienConnexion">login</a></li>
+			<li id="lienLogin"><a href="Login.html" class="lienConnexion">login</a></li>
 			<li><a href="index.html" id="lienLogout" class="js-modal lienConnexion">logout</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
@@ -125,9 +125,11 @@
 		<div class="modal-wrapper wrapper">
 		  <button class="modal-close">X</button>
 		  <div class="editGalleryModal4">
+
 			 <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-			 <p class="photoToAdd">Ajout photo</p>
-			<div class="chartAddPhoto" id="chartAddPhoto">
+			 <form id="formular">
+			     <p class="photoToAdd">Ajout photo</p>
+			     <div class="chartAddPhoto" id="chartAddPhoto">
 				<i class="fa-sharp fa-regular fa-image"></i>
 				<label for="inputImg" class="addPhoto" id="image">+Ajouter photo</label>
 				<input type="file" name="image" id="inputImg" accept="image/*" required>
@@ -137,19 +139,18 @@
 			<div id="divisionPreviewImg">
 				<img id="previewImg">
 			</div>
-			<form id="formular">
-				 <div id="title">
+			
+				 <div id="titleWork">
 				    <label for="title">Titre</label>
 				    <input type="text" id="title" name="title" required/>
 			    </div>
-				<div id="category">
+				<div id="categoryWork">
 				    <label for="category">Catégorie</label>
 				    <select id="category" name="category" required>
-						<option value=1>--Choix de catégorie--</option>
-						<option value=2></option>
-					    <option value=3>Objet</option>
-						<option value=4>Appartement</option>
-						<option value=5>Hôtel ou restaurant</option>
+						<option value=0>--Choix de catégorie--</option>
+						<option value=1>Objet</option>
+						<option value=2>Appartement</option>
+						<option value=3>Hôtel ou restaurant</option>
 						
 				    </select><br>
 					
