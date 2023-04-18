@@ -210,6 +210,7 @@ image.addEventListener('change', (event) => {
     const title = document.getElementById('title').value;
     const imageName = document.getElementById('inputImg').files[0];
     const category = document.getElementById('category').value;
+    const submitBtn = document.getElementById('addSubmitBtn');
 
     console.log(title);
     console.log(imageName);
@@ -245,10 +246,8 @@ image.addEventListener('change', (event) => {
     })
 
     .then(response => {
-      console.log("JJ")
-
+     
       if (!response.ok) {
-        console.log("JJ2")
         throw new Error('Une erreur est survenue!!');
         
       }
@@ -256,6 +255,14 @@ image.addEventListener('change', (event) => {
     })
     .then(data => {
       console.log('Success:', data);
+      const changeColorBtn = () => {
+        if (image && title && category){
+          submitBtn.style.backgroundColor = '#1D6154';
+          
+        }else{
+          submitBtn.style.backgroundColor = '#A7A7A7';
+        }
+      };
       document.getElementById('errorMessage').textContent = 'Le formulaire a été envoyé avec succès !';
       // Message de confirmation
 
@@ -271,7 +278,7 @@ image.addEventListener('change', (event) => {
       galerie.appendChild(newWork);
       newWork.appendChild(imgNewWork);
       newWork.appendChild(titleNewWork);
-
+      
     })
     
     .catch((error) => {
@@ -279,3 +286,19 @@ image.addEventListener('change', (event) => {
       document.getElementById('errorMessage').textContent = 'Une erreur est survenue lors de l\'envoi du formulaire';
     });
   });
+
+  //Changer la couleur du bouton "valider" en vert si tous les champs sont remplis 
+  const submitBtn = document.getElementById('addSubmitBtn');
+  const title = document.getElementById('title');
+  const imageName = document.getElementById('inputImg');
+  const category = document.getElementById('category');
+
+  const changeColorBtn = () => {
+    if (image.value && title.value && category.value){
+      submitBtn.style.backgroundColor = '#1D6154';
+      
+    }else{
+      submitBtn.style.backgroundColor = '#A7A7A7';
+    }
+  };
+

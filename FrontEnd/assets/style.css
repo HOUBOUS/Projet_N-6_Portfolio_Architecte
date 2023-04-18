@@ -489,7 +489,13 @@ footer nav ul {
 	.photoToAdd{
 		font-size: 26px;
 		font-weight: 400;
-		padding: 60px 210px;
+		padding: 60px 130px;
+	}
+	#addSubmitBtn{
+		width: 237px;
+		height: 40px;
+		margin-left: 90px;
+		background-color: #A7A7A7;
 	}
   .chartAddPhoto{
 	position: relative;
@@ -550,8 +556,9 @@ footer nav ul {
   #title{
 	display: flex;
 	flex-direction: column;
-	padding-bottom: 20px;
-	height: 70px;
+	margin-bottom: 20px;
+	height: 55px;
+	width: 420px;
     background: #FFFFFF;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
     border: none;
@@ -560,7 +567,8 @@ footer nav ul {
   #category{
 	display: flex;
 	flex-direction: column;
-	height: 70px;
+	height: 55px;
+	width: 420px;
 	background: #FFFFFF;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
     border: none;
