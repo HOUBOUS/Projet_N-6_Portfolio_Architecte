@@ -6,8 +6,7 @@ const fetchGallery = async() =>{
        .then((res)=> res.json())
        .then((promise) => {
         galleryData = promise;
-        
-        
+                
        })
 
        .catch(error => console.error(error));
@@ -15,8 +14,7 @@ const fetchGallery = async() =>{
        const portfolioGallery = document.querySelector('#portfolio .gallery');
 
       galleryData.map(function(itemGallery){
-        
-        
+                
        const listItemRaw = `
         <div data-category = '${itemGallery.categoryId}'>
           
@@ -28,26 +26,10 @@ const fetchGallery = async() =>{
        portfolioGallery.insertAdjacentHTML('beforeend', listItemRaw);
 
       });
-
-      
+    
   };
   fetchGallery();
   
-
-
-let categoriesData = [];
- 
-const fetchCategories = async() =>{
-  await fetch('http://localhost:5678/api/categories')
-       .then((res)=> res.json())
-       .then((promise) => {
-        categoriesData = promise;
-        
-        
-       });
-      
-};
-fetchCategories();  
 
 //  Creation of buttons //
 

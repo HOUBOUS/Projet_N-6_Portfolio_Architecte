@@ -131,8 +131,8 @@ const fetchGalleryModal3 = async () => {
     portfolioGalleryModal3.insertAdjacentHTML('beforeend', listItemRaw);
 
   });
-
-};
+  
+  };
 fetchGalleryModal3();
 
 
@@ -141,6 +141,7 @@ fetchGalleryModal3();
 
 // Pour supprimer un élement de l'API Swagger, je fait une demande d'autorisation en envoyant les informations d'identification email et password,
 const removeGalleryItem = async (id) => {
+  
 
   const response = await fetch(`http://localhost:5678/api/works/${id}`, {
     method: 'DELETE',
@@ -159,14 +160,16 @@ const portfolioGalleryModal3 = document.querySelector('#modal3 .editGalleryModal
 
 // Ecouter l'évenement clique sur l'icône de corbeille (trash-can-button) pour supprimer l'élement parent 
 
+
 portfolioGalleryModal3.addEventListener('click', (event) => {
+  event.preventDefault();
   if (event.target.classList.contains('trash-can-button')) {
     const listItem = event.target.parentNode;
     const id = listItem.dataset.id;
     const confirmationSupression = confirm("êtes vous sûr de supprimer ce work??");
     if (confirmationSupression) {
       removeGalleryItem(id);
-      event.stopPropagation()
+      event.stopPropagation();
       listItem.parentNode.removeChild(listItem);
     }
 
@@ -205,6 +208,7 @@ image.addEventListener('change', (event) => {
   formular.addEventListener('submit', (event) => {
    // Empecher l'envoi par défaut de mon formulaire
     event.preventDefault();
+    event.stopPropagation();
 
    //Récupérer les valeurs des différents éléments
     const title = document.getElementById('title').value;
@@ -212,10 +216,7 @@ image.addEventListener('change', (event) => {
     const category = document.getElementById('category').value;
     const submitBtn = document.getElementById('addSubmitBtn');
 
-    console.log(title);
-    console.log(imageName);
-    console.log(category);
-
+    
     //Message d'erreur si le formulaire est mal rempli 
     const errorMessage = document.getElementById('errorMessage');
 
@@ -228,6 +229,7 @@ image.addEventListener('change', (event) => {
     }
     else {
      errorMessage.innerHTML = " ";
+     
     }
      //Création d'un objet appelé FormData pour envoyer le fichier image
      const formData = new FormData();
@@ -288,17 +290,36 @@ image.addEventListener('change', (event) => {
   });
 
   //Changer la couleur du bouton "valider" en vert si tous les champs sont remplis 
-  const submitBtn = document.getElementById('addSubmitBtn');
+
+
   const title = document.getElementById('title');
-  const imageName = document.getElementById('inputImg');
+  const inputImg = document.getElementById('inputImg');
   const category = document.getElementById('category');
+  const submitBtn = document.getElementById('addSubmitBtn');
 
-  const changeColorBtn = () => {
-    if (image.value && title.value && category.value){
-      submitBtn.style.backgroundColor = '#1D6154';
-      
-    }else{
-      submitBtn.style.backgroundColor = '#A7A7A7';
+  
+    
+  // Ecouter les changement au niveau du titre, de l'image ou de la catégorie ensuite faire appel 
+  // a la fonction validateForm
+  title.addEventListener('input', validateForm);
+  inputImg.addEventListener('change', validateForm);
+  category.addEventListener('change', validateForm);
+  
+
+  
+  // La Fonction validateForm vérifie que les trois champs ont des valeurs
+  function validateForm() {
+    // Vérifier que les champs : Title, inputImg, category ont une valeur 
+    if (title.value && inputImg.value && category.value !=="0"){
+        // Si les trois champs sont bien remplis le bouton change de couleur
+        submitBtn.style.backgroundColor = "#1D6154";
     }
-  };
+    // si l'un des tois champs est vide le bouton garde sa couleur par défaut 
+    else{
 
+         submitBtn.style.backgroundColor = "";
+
+    }
+  }
+  
+  
