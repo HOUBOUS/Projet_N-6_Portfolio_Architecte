@@ -1,17 +1,17 @@
 
-let galleryData = [];
+const portfolioGallery = document.querySelector('#portfolio .gallery');
  
 const fetchGallery = async() =>{
+  let galleryData = [];
   await fetch('http://localhost:5678/api/works')
        .then((res)=> res.json())
        .then((promise) => {
         galleryData = promise;
                 
        })
-
        .catch(error => console.error(error));
 
-       const portfolioGallery = document.querySelector('#portfolio .gallery');
+       portfolioGallery.innerHTML = " ";
 
       galleryData.map(function(itemGallery){
                 
@@ -51,7 +51,7 @@ portfolioFilter.appendChild(hotelRestaurantButton);
 
 console.log(portfolioFilter);
      // Fonction pour designer le boutton actif
-      function setActiveButton(button){// remove the 'active' class from all buttons
+      function setActiveButton(button){
         allButton.classList.remove('active');
         objectButton.classList.remove('active');
         appartementButton.classList.remove('active');

@@ -1,40 +1,42 @@
-
-const token = localStorage.getItem('token');
+const portfolioGalleryModal3 = document.querySelector('#modal3 .editGalleryModal3');
+const token = localStorage.getItem('tokenSophie');
 const modals = document.querySelectorAll('.js-modal');
 const blackBanner = document.getElementById('blackBanner');
 const login = document.querySelector('#lienLogin');
 const logout = document.getElementById('lienLogout');
 const filters = document.querySelector('#portfolio .filter');
 const editIcon = document.querySelectorAll('.fa-pen-to-square');
+const modal1 = document.getElementById('modal1');
+const modal2 = document.getElementById('modal2');
+const modal3 = document.getElementById('modal3');
+const modal4 = document.getElementById('modal4')
 
 // Gérer le rechargement de la page 
 
-if (token){
- login.style.display = "none";
- logout.style.display = "block";
- blackBanner.style.display = "block";
- modals.forEach(modals => {
-  modals.style.display = 'block';
-});
+if (token) {
+  login.style.display = "none";
+  logout.style.display = "block";
+  blackBanner.style.display = "block";
+  modals.forEach(modals => {
+    modals.style.display = 'block';
+  });
 
-editIcon.forEach(editIcon => {
-  editIcon.style.display = 'block';
-});
+  editIcon.forEach(editIcon => {
+    editIcon.style.display = 'block';
+  });
 
-}else{
+} else {
   login.style.display = "block";
   logout.style.display = "none";
   filters.innerHTML = " ";
   modals.forEach(modals => {
     modals.style.display = 'none';
-    
-  });
 
+  });
   editIcon.forEach(editIcon => {
     editIcon.style.display = 'none';
   });
   blackBanner.style.display = "none";
-
 }
 
 //losqu'on appuie sur le bouton logout, efface le local storage
@@ -70,8 +72,6 @@ document.querySelectorAll(".js-modal").forEach(a => {
 
 });
 
-
-
 // Utilisateur click sur le bouton pour fermer la modale
 
 const closeButtons = document.querySelectorAll(".modal-close");
@@ -101,9 +101,8 @@ function closeModal4(event) {
 
 // Afficher les images de la modale3
 
-let galleryModalData = [];
-
 const fetchGalleryModal3 = async () => {
+  let galleryModalData = [];
   await fetch('http://localhost:5678/api/works')
     .then((res) => res.json())
     .then((promise) => {
@@ -113,8 +112,7 @@ const fetchGalleryModal3 = async () => {
     })
 
     .catch(error => console.error(error));
-
-  const portfolioGalleryModal3 = document.querySelector('#modal3 .editGalleryModal3');
+    portfolioGalleryModal3.innerHTML = " ";
 
   galleryModalData.map(function (itemGallery) {
     console.log("itemGallery", itemGallery);
@@ -131,8 +129,8 @@ const fetchGalleryModal3 = async () => {
     portfolioGalleryModal3.insertAdjacentHTML('beforeend', listItemRaw);
 
   });
-  
-  };
+
+};
 fetchGalleryModal3();
 
 
@@ -141,7 +139,10 @@ fetchGalleryModal3();
 
 // Pour supprimer un élement de l'API Swagger, je fait une demande d'autorisation en envoyant les informations d'identification email et password,
 const removeGalleryItem = async (id) => {
-  
+     // vérifier si l'utilisateur est connecté et a les autorisations 
+        if (!token){
+          throw new Error('User not authenticated!');
+        }
 
   const response = await fetch(`http://localhost:5678/api/works/${id}`, {
     method: 'DELETE',
@@ -150,43 +151,49 @@ const removeGalleryItem = async (id) => {
   // La fonction de suppression utilise l'API Swagger pour supprimer l'élément avec l'ID donné, et si elle réussit, elle supprime également l'élément 
   // HTML correspondant de la galerie.
   if (response.status === 204) {
+    
+    fetchGallery();
     console.log(`Item with id ${id} deleted successfully.`);
   } else {
     throw new Error(`Failed to delete item with id ${id}.`);
   }
 };
 
-const portfolioGalleryModal3 = document.querySelector('#modal3 .editGalleryModal3');
-
 // Ecouter l'évenement clique sur l'icône de corbeille (trash-can-button) pour supprimer l'élement parent 
 
-
-portfolioGalleryModal3.addEventListener('click', (event) => {
+portfolioGalleryModal3.addEventListener('click', async (event) => {
   event.preventDefault();
   if (event.target.classList.contains('trash-can-button')) {
     const listItem = event.target.parentNode;
     const id = listItem.dataset.id;
     const confirmationSupression = confirm("êtes vous sûr de supprimer ce work??");
     if (confirmationSupression) {
-      removeGalleryItem(id);
+      try {
+      await removeGalleryItem(id);
       event.stopPropagation();
       listItem.parentNode.removeChild(listItem);
     }
-
+    catch (error){
+      console.error(error);
+    }
   }
+}
 });
 
 //Suppression de l'ensemble des travaux en cliquant que le bouton "Supprimer la galerie"
-const deleteGallery = document.querySelector('.deleteGallery');
+// const deleteGallery = document.querySelector('.deleteGallery');
 const editGalleryModal3 = document.querySelector('.editGalleryModal3');
 const arrowMultidirection = document.querySelector('.modalMultidirection .fa-up-down-left-right');
 
-deleteGallery.addEventListener('click', () => {
+// deleteGallery.addEventListener('click', () => {
+//  // vérifier si l'utilisateur est connecté et a les autorisations 
+//  if(!token){
+//   throw new Error('User not authenticated!');
+//  }
+//   editGalleryModal3.innerHTML = " ";
+//   arrowMultidirection.style.display = "none";
 
-  editGalleryModal3.innerHTML = " ";
-  arrowMultidirection.style.display = "none";
-
-});
+// });
 
 // Afficher la nouvelle photo dans la galerie 
 
@@ -203,72 +210,66 @@ image.addEventListener('change', (event) => {
 });
 
 // récuperer le formulaire et ajouter un listener sur l'evenement submit
-  const formular = document.getElementById('formular');
+const formular = document.getElementById('formular');
 
-  formular.addEventListener('submit', (event) => {
-   // Empecher l'envoi par défaut de mon formulaire
-    event.preventDefault();
-    event.stopPropagation();
+formular.addEventListener('submit', (event) => {
+  // Empecher l'envoi par défaut de mon formulaire
+  event.preventDefault();
+  event.stopPropagation();
 
-   //Récupérer les valeurs des différents éléments
-    const title = document.getElementById('title').value;
-    const imageName = document.getElementById('inputImg').files[0];
-    const category = document.getElementById('category').value;
-    const submitBtn = document.getElementById('addSubmitBtn');
+  //Récupérer les valeurs des différents éléments
+  const title = document.getElementById('title').value;
+  const imageName = document.getElementById('inputImg').files[0];
+  const category = document.getElementById('category').value;
+  const submitBtn = document.getElementById('addSubmitBtn');
 
-    
-    //Message d'erreur si le formulaire est mal rempli 
-    const errorMessage = document.getElementById('errorMessage');
 
-    console.log(!title || !imageName || !category);
+  //Message d'erreur si le formulaire est mal rempli 
+  const errorMessage = document.getElementById('errorMessage');
 
-    if (!title || !imageName || !category) {
+  console.log(!title || !imageName || !category);
 
-     errorMessage.textContent = 'Veuillez remplir tous les champs';
+  if (!title || !imageName || !category) {
+    errorMessage.textContent = 'Veuillez remplir tous les champs';
+  }
+  else {
+    errorMessage.innerHTML = " ";
+  }
+  //Création d'un objet appelé FormData pour envoyer le fichier image
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('image', imageName);
+  formData.append('category', category);
 
-    }
-    else {
-     errorMessage.innerHTML = " ";
-     
-    }
-     //Création d'un objet appelé FormData pour envoyer le fichier image
-     const formData = new FormData();
-     formData.append('title', title);
-     formData.append('image', imageName);
-     formData.append('category', category);
-     
 
-   // Envoyer la requete avec fetch à l'API Swagger 
-    fetch('http://localhost:5678/api/works', {
-       method: 'POST',
-       headers: {
-        'Authorization': `Bearer ${token}`
-      },
-      body: formData,
-    })
+  // Envoyer la requete avec fetch à l'API Swagger 
+  fetch('http://localhost:5678/api/works', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    },
+    body: formData,
+  })
 
     .then(response => {
-     
+
       if (!response.ok) {
         throw new Error('Une erreur est survenue!!');
-        
+
       }
       return response.json();
     })
     .then(data => {
       console.log('Success:', data);
       const changeColorBtn = () => {
-        if (image && title && category){
-          submitBtn.style.backgroundColor = '#1D6154';
-          
-        }else{
-          submitBtn.style.backgroundColor = '#A7A7A7';
-        }
+        
       };
       document.getElementById('errorMessage').textContent = 'Le formulaire a été envoyé avec succès !';
+      fetchGalleryModal3();
+      fetchGallery()
       // Message de confirmation
 
-     
+
       const newWork = document.createElement("div");
       newWork.dataset.id = data.id;
       const imgNewWork = document.createElement("img");
@@ -280,46 +281,45 @@ image.addEventListener('change', (event) => {
       galerie.appendChild(newWork);
       newWork.appendChild(imgNewWork);
       newWork.appendChild(titleNewWork);
-      
+
     })
-    
+
     .catch((error) => {
       console.error(error);
       document.getElementById('errorMessage').textContent = 'Une erreur est survenue lors de l\'envoi du formulaire';
     });
-  });
+});
 
-  //Changer la couleur du bouton "valider" en vert si tous les champs sont remplis 
+//Changer la couleur du bouton "valider" en vert si tous les champs sont remplis 
 
 
-  const title = document.getElementById('title');
-  const inputImg = document.getElementById('inputImg');
-  const category = document.getElementById('category');
-  const submitBtn = document.getElementById('addSubmitBtn');
+const title = document.getElementById('title');
+const inputImg = document.getElementById('inputImg');
+const category = document.getElementById('category');
+const submitBtn = document.getElementById('addSubmitBtn');
 
-  
-    
-  // Ecouter les changement au niveau du titre, de l'image ou de la catégorie ensuite faire appel 
-  // a la fonction validateForm
-  title.addEventListener('input', validateForm);
-  inputImg.addEventListener('change', validateForm);
-  category.addEventListener('change', validateForm);
-  
 
-  
-  // La Fonction validateForm vérifie que les trois champs ont des valeurs
-  function validateForm() {
-    // Vérifier que les champs : Title, inputImg, category ont une valeur 
-    if (title.value && inputImg.value && category.value !=="0"){
-        // Si les trois champs sont bien remplis le bouton change de couleur
-        submitBtn.style.backgroundColor = "#1D6154";
-    }
-    // si l'un des tois champs est vide le bouton garde sa couleur par défaut 
-    else{
 
-         submitBtn.style.backgroundColor = "";
+// Ecouter les changement au niveau du titre, de l'image ou de la catégorie ensuite faire appel 
+// a la fonction validateForm
+title.addEventListener('input', validateForm);
+inputImg.addEventListener('change', validateForm);
+category.addEventListener('change', validateForm);
 
-    }
+
+
+// La Fonction validateForm vérifie que les trois champs ont des valeurs
+function validateForm() {
+  // Vérifier que les champs : Title, inputImg, category ont une valeur 
+  if (title.value && inputImg.value && category.value !== "0") {
+    // Si les trois champs sont bien remplis le bouton change de couleur
+    submitBtn.style.backgroundColor = "#1D6154";
   }
-  
-  
+  // si l'un des tois champs est vide le bouton garde sa couleur par défaut 
+  else {
+
+    submitBtn.style.backgroundColor = "";
+
+  }
+}
+
