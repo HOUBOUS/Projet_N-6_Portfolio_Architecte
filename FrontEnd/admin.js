@@ -135,8 +135,6 @@ fetchGalleryModal3();
 
 
 //La fonction removeGalleryItem est appelée avec l'ID de l'élément parent, qui est stocké dans l'attribut de données "data-id" de la div parent. 
-
-
 // Pour supprimer un élement de l'API Swagger, je fait une demande d'autorisation en envoyant les informations d'identification email et password,
 const removeGalleryItem = async (id) => {
      // vérifier si l'utilisateur est connecté et a les autorisations 
@@ -184,16 +182,6 @@ portfolioGalleryModal3.addEventListener('click', async (event) => {
 // const deleteGallery = document.querySelector('.deleteGallery');
 const editGalleryModal3 = document.querySelector('.editGalleryModal3');
 const arrowMultidirection = document.querySelector('.modalMultidirection .fa-up-down-left-right');
-
-// deleteGallery.addEventListener('click', () => {
-//  // vérifier si l'utilisateur est connecté et a les autorisations 
-//  if(!token){
-//   throw new Error('User not authenticated!');
-//  }
-//   editGalleryModal3.innerHTML = " ";
-//   arrowMultidirection.style.display = "none";
-
-// });
 
 // Afficher la nouvelle photo dans la galerie 
 
